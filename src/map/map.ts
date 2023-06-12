@@ -2,21 +2,16 @@
 import MapView from "@arcgis/core/views/MapView";
 import WebMap from "@arcgis/core/WebMap";
 import config from "@arcgis/core/config";
-import BasemapToggle from "@arcgis/core/widgets/BasemapToggle";
-import LayerList from "@arcgis/core/widgets/LayerList";
-import WMSLayer from "@arcgis/core/layers/WMSLayer";
-import Fullscreen from "@arcgis/core/widgets/Fullscreen";
-import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
-import Sketch from "@arcgis/core/widgets/Sketch";
-import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
 //🗺️ imports
-import { layer_ac, layer_anp, layer_rb, layer_sr } from "./layers";
+import { graphicsLayer } from "./layers/graphic";
+import { drawingLayer, drawingSketch } from "./layers/drawing";
+import { fullscreen } from "./ui/fullscreen";
+import { layerList } from "./ui/layerlist";
+import { basemapToggle } from "./ui/basemapToggle";
 
 //⚙️ config
 config.apiKey =
   "AAPKd049885b0910426db536781c03b20661HIFgGhU3Hh7xnuoUq8lhAvUhEysGdin0RrXYMAotKJjivYAmbr0Pn7EKiOAOSBeB";
-
-export const graphicsLayer = new GraphicsLayer({ title: "Capa de edición" });
 
 export const view = new MapView({
   map: new WebMap({
@@ -30,47 +25,22 @@ export const view = new MapView({
 
 //⏺️ cuando este lista la instancia del mapa
 view.when(() => {
-  //⏺️
-  add_layers();
-  // 1️⃣
-  // basemap toogle
-  view.ui.add(
-    new BasemapToggle({
-      view: view,
-      nextBasemap: "arcgis-imagery",
-    }),
-    "bottom-right"
-  );
-  //2️⃣
-  // add graphics layer
-  view.map.add(graphicsLayer);
-  //3️⃣
-  // create a new sketch widget
-  const sketch = new Sketch({
-    layer: graphicsLayer,
-    view: view,
-    // graphic will be selected as soon as it is created
-    creationMode: "update",
-    visibleElements: {},
-  });
-  view.ui.add(sketch, "top-right");
-  //4️⃣
-  // layer list
-  const layerList = new LayerList({
-    view: view,
-  });
+  addLayers();
+  // 1️⃣ basemap toogle
+  basemapToggle.view = view;
+  view.ui.add(basemapToggle, "bottom-right");
+  //3️⃣ add drawing sketch
+  drawingSketch.view = view;
+  view.ui.add(drawingSketch, "top-right");
+  //4️⃣ layer list
+  layerList.view = view;
   view.ui.add(layerList, "top-right");
-  //5️⃣
-  // fullscreen option
-  const fullscreen = new Fullscreen({
-    view: view,
-  });
+  //5️⃣ fullscreen option
+  fullscreen.view = view;
   view.ui.add(fullscreen, "top-right");
 });
 
-function add_layers() {
-  view.map.add(layer_ac);
-  view.map.add(layer_anp);
-  view.map.add(layer_rb);
-  view.map.add(layer_sr);
+function addLayers() {
+  view.map.add(drawingLayer);
+  view.map.add(graphicsLayer);
 }
