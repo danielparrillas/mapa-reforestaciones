@@ -13,12 +13,9 @@ type GeometryType =
 
 interface UseMapStore {
   graphics?: Collection<Graphic>;
-  geometryType?: GeometryType;
   setGraphics: (graphics: Collection<Graphic>) => void;
-  setGeometryType: (type: GeometryType) => void;
 }
 
 export const useMapStore = create<UseMapStore>()((set) => ({
   setGraphics: (graphics) => set(() => ({ graphics: graphics })),
-  setGeometryType: (type) => set(() => ({ geometryType: type })),
 }));
