@@ -1,5 +1,5 @@
 import Graphic from "@arcgis/core/Graphic";
-import Collection from "esri/core/Collection";
+import Geometry from "@arcgis/core/geometry/Geometry";
 
 import { create } from "zustand";
 
@@ -12,10 +12,13 @@ type GeometryType =
   | "mesh";
 
 interface UseMapStore {
-  graphics?: Collection<Graphic>;
-  setGraphics: (graphics: Collection<Graphic>) => void;
+  graphic?: Graphic;
+  setGraphic: (graphic?: Graphic) => void;
+  geometry?: Geometry;
+  setGeometry: (geometry?: Geometry) => void;
 }
 
 export const useMapStore = create<UseMapStore>()((set) => ({
-  setGraphics: (graphics) => set(() => ({ graphics: graphics })),
+  setGraphic: (graphic) => set(() => ({ graphic: graphic })),
+  setGeometry: (geometry) => set(() => ({ geometry: geometry })),
 }));

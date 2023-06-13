@@ -6,7 +6,7 @@ import Sheets from "./components/Sheets";
 
 function App() {
   return (
-    <div className="overflow-hidden flex">
+    <div className="overflow-hidden flex h-screen">
       <SideBar />
       <Map />
       {/* <Sheets /> */}

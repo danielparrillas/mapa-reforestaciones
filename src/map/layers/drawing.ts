@@ -3,11 +3,13 @@ import Sketch from "@arcgis/core/widgets/Sketch";
 
 const drawingLayer = new GraphicsLayer({ title: "✏️ Capa de dibujo" });
 
+//view model
+
 // create a new sketch widget
 export const drawingSketch = new Sketch({
   layer: drawingLayer,
   // graphic will be selected as soon as it is created
-  creationMode: "single",
+  creationMode: "update",
   visibleElements: {
     createTools: { circle: false, rectangle: false },
     selectionTools: { "lasso-selection": false, "rectangle-selection": false },
@@ -29,16 +31,16 @@ export const drawingSketch = new Sketch({
 // });
 
 // con este metodo solo podremos ingresar un tipo de geometria
-// drawingSketch.on("create", (e) => {
-//   if (drawingLayer.graphics.length !== 0) {
-//     if (
-//       drawingLayer.graphics.getItemAt(0).geometry.type !==
-//       e.graphic.geometry.type
-//     ) {
-//       drawingLayer.removeAll();
-//     }
-//   }
-// });
+drawingSketch.on("create", (e) => {
+  if (drawingSketch.layer.graphics.length !== 0) {
+    if (
+      drawingSketch.layer.graphics.getItemAt(0).geometry.type !==
+      e.graphic.geometry.type
+    ) {
+      drawingSketch.layer.graphics.removeAll();
+    }
+  }
+});
 
 //permite cancelar un dibujo
 // drawingSketch.on("create", function (event) {

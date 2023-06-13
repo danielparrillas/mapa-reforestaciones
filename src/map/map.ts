@@ -19,6 +19,7 @@ export const view = new MapView({
     portalItem: {
       id: "aa1d3f80270146208328cf66d022e09c",
     },
+    basemap: "arcgis-imagery",
   }),
   center: [-88.72444100946737, 13.916831121334241],
   zoom: 15, //8
@@ -29,16 +30,16 @@ view.when(() => {
   addLayers();
   // 1️⃣ basemap toogle
   basemapToggle.view = view;
-  view.ui.add(basemapToggle, "bottom-right");
+  view.ui.add(basemapToggle, "bottom-left");
   //3️⃣ add drawing sketch
   drawingSketch.view = view;
   view.ui.add(drawingSketch, "top-right");
   //4️⃣ layer list
-  layerList.view = view;
-  view.ui.add(layerList, "top-right");
+  // layerList.view = view;
+  // view.ui.add(layerList, "top-right");
   //5️⃣ fullscreen option
   fullscreen.view = view;
-  view.ui.add(fullscreen, "top-right");
+  view.ui.add(fullscreen, "bottom-right");
 });
 
 function addLayers() {
