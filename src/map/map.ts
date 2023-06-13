@@ -3,8 +3,8 @@ import MapView from "@arcgis/core/views/MapView";
 import WebMap from "@arcgis/core/WebMap";
 import config from "@arcgis/core/config";
 //🗺️ imports
-import { graphicsLayer } from "./layers/graphic";
-import { drawingSketch, drawingLayer } from "./layers/drawing";
+// import { graphicsLayer } from "./layers/graphic";
+import { drawingSketch } from "./layers/drawing";
 import { fullscreen } from "./ui/fullscreen";
 import { basemapToggle } from "./ui/basemapToggle";
 import { layerList } from "./ui/layerList";
@@ -42,6 +42,6 @@ view.when(() => {
 });
 
 function addLayers() {
-  view.map.add(drawingLayer);
+  view.map.add(drawingSketch.layer);
   // view.map.add(graphicsLayer);
 }

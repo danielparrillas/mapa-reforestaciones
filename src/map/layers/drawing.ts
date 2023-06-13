@@ -1,10 +1,7 @@
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Sketch from "@arcgis/core/widgets/Sketch";
-import Geometry from "@arcgis/core/geometry/Geometry";
 
-let graphic: Geometry;
-
-export const drawingLayer = new GraphicsLayer({ title: "✏️ Capa de dibujo" });
+const drawingLayer = new GraphicsLayer({ title: "✏️ Capa de dibujo" });
 
 // create a new sketch widget
 export const drawingSketch = new Sketch({
@@ -12,7 +9,7 @@ export const drawingSketch = new Sketch({
   // graphic will be selected as soon as it is created
   creationMode: "single",
   visibleElements: {
-    createTools: { circle: false, rectangle: false, point: false },
+    createTools: { circle: false, rectangle: false },
     selectionTools: { "lasso-selection": false, "rectangle-selection": false },
     settingsMenu: false,
   },
@@ -20,17 +17,28 @@ export const drawingSketch = new Sketch({
 });
 
 // con esto podemos ver las coordenadas
-drawingSketch.on("create", (e) => {
-  if (e.state === "complete") {
-    const geometry = e.graphic.geometry;
-    if (geometry.type === "point") console.log("Punto");
-    if (geometry.type === "polygon") console.log("Poligono");
+// drawingSketch.on("create", (e) => {
+//   if (e.state === "complete") {
+//     const geometry = e.graphic.geometry;
+//     if (geometry.type === "point") console.log("Punto");
+//     if (geometry.type === "polygon") console.log("Poligono");
+//     console.log(
+//       drawingSketch.layer.graphics.forEach((g) => console.log(g.geometry))
+//     );
+//   }
+// });
 
-    console.log(
-      drawingSketch.layer.graphics.forEach((g) => console.log(g.geometry))
-    );
-  }
-});
+// con este metodo solo podremos ingresar un tipo de geometria
+// drawingSketch.on("create", (e) => {
+//   if (drawingLayer.graphics.length !== 0) {
+//     if (
+//       drawingLayer.graphics.getItemAt(0).geometry.type !==
+//       e.graphic.geometry.type
+//     ) {
+//       drawingLayer.removeAll();
+//     }
+//   }
+// });
 
 //permite cancelar un dibujo
 // drawingSketch.on("create", function (event) {
