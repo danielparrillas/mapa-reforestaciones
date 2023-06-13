@@ -34,7 +34,6 @@ const polygon = new Polygon({
     ],
   ],
 });
-console.log(polygon.centroid);
 const simpleFillSymbol = {
   type: "simple-fill",
   color: [227, 139, 79, 0.8], // Orange, opacity 80%

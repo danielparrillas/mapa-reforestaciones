@@ -4,10 +4,11 @@ import WebMap from "@arcgis/core/WebMap";
 import config from "@arcgis/core/config";
 //🗺️ imports
 import { graphicsLayer } from "./layers/graphic";
-import { drawingLayer, drawingSketch } from "./layers/drawing";
+import { drawingSketch, drawingLayer } from "./layers/drawing";
 import { fullscreen } from "./ui/fullscreen";
-import { layerList } from "./ui/layerlist";
 import { basemapToggle } from "./ui/basemapToggle";
+import { layerList } from "./ui/layerList";
+//🧪 testing
 
 //⚙️ config
 config.apiKey =
@@ -19,8 +20,8 @@ export const view = new MapView({
       id: "aa1d3f80270146208328cf66d022e09c",
     },
   }),
-  center: [-88.2, 13.7],
-  zoom: 9,
+  center: [-88.72444100946737, 13.916831121334241],
+  zoom: 15, //8
 });
 
 //⏺️ cuando este lista la instancia del mapa
@@ -42,5 +43,5 @@ view.when(() => {
 
 function addLayers() {
   view.map.add(drawingLayer);
-  view.map.add(graphicsLayer);
+  // view.map.add(graphicsLayer);
 }

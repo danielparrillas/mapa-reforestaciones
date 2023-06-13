@@ -1,5 +1,8 @@
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Sketch from "@arcgis/core/widgets/Sketch";
+import Geometry from "@arcgis/core/geometry/Geometry";
+
+let graphic: Geometry;
 
 export const drawingLayer = new GraphicsLayer({ title: "✏️ Capa de dibujo" });
 
@@ -7,7 +10,7 @@ export const drawingLayer = new GraphicsLayer({ title: "✏️ Capa de dibujo" }
 export const drawingSketch = new Sketch({
   layer: drawingLayer,
   // graphic will be selected as soon as it is created
-  creationMode: "update",
+  creationMode: "single",
   visibleElements: {
     createTools: { circle: false, rectangle: false, point: false },
     selectionTools: { "lasso-selection": false, "rectangle-selection": false },
@@ -22,5 +25,17 @@ drawingSketch.on("create", (e) => {
     const geometry = e.graphic.geometry;
     if (geometry.type === "point") console.log("Punto");
     if (geometry.type === "polygon") console.log("Poligono");
+
+    console.log(
+      drawingSketch.layer.graphics.forEach((g) => console.log(g.geometry))
+    );
   }
 });
+
+//permite cancelar un dibujo
+// drawingSketch.on("create", function (event) {
+//   // Si ya hay una geometría presente, desactiva el dibujo o muestra un mensaje al usuario
+//   drawingSketch.cancel();
+//   console.log("Solo se permite crear una geometría.");
+//   return;
+// });
